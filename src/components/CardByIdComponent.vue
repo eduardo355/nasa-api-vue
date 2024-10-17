@@ -102,7 +102,31 @@
 import { defineProps } from 'vue'
 import OrbitalIcon from '@/components/icons/OrbitalIcon.vue'
 
+interface Data {
+  name: string
+  neo_reference_id: string
+  name_limited: string
+  absolute_magnitude_h: number
+  estimated_diameter: {
+    kilometers: {
+      estimated_diameter_min: number
+      estimated_diameter_max: number
+    }
+  }
+  is_potentially_hazardous_asteroid: boolean
+  orbital_data: {
+    orbit_class: {
+      orbit_class_type: string
+      orbit_class_description: string
+    }
+    orbital_period: string
+    eccentricity: string
+    semi_major_axis: string
+    inclination: string
+  }
+}
+
 defineProps<{
-  data: Object
+  data: Data
 }>()
 </script>
