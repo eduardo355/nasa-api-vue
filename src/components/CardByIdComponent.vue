@@ -8,17 +8,17 @@
 
       <div class="text-lg space-y-4">
         <div class="flex justify-between">
-          <span class="font-semibold">Nombre limitado:</span>
+          <span class="font-semibold">Limited name:</span>
           <span>{{ data.name_limited }}</span>
         </div>
 
         <div class="flex justify-between">
-          <span class="font-semibold">Magnitud absoluta (H):</span>
+          <span class="font-semibold">Absolute magnitude (H):</span>
           <span>{{ data.absolute_magnitude_h }}</span>
         </div>
 
         <div class="flex justify-between">
-          <span class="font-semibold">Diametro estimado:</span>
+          <span class="font-semibold">Estimated diameter:</span>
           <span>
             {{ data.estimated_diameter.kilometers.estimated_diameter_min.toFixed(2) }}
             -
@@ -35,11 +35,11 @@
               : 'bg-green-100 border-green-200'
           "
         >
-          <span class="font-semibold">Estado de peligrosidad</span>
+          <span class="font-semibold">State of danger</span>
           <span class="text-sm"
-            >Este asteroide
-            {{ data.is_potentially_hazardous_asteroid ? 'si es' : 'no es' }} potencialmente
-            peligroso.</span
+            >This asteroid
+            {{ data.is_potentially_hazardous_asteroid ? 'is' : 'is not' }} potentially
+            dangerous.</span
           >
         </div>
       </div>
@@ -47,25 +47,25 @@
       <div class="text-lg space-y-2">
         <div class="flex items-center space-x-2 text-xl font-semibold">
           <OrbitalIcon />
-          <h3>Datos orbitales</h3>
+          <h3>Orbital data</h3>
         </div>
 
         <div class="flex justify-between items-center">
-          <span class="font-semibold">Clase orbital:</span>
+          <span class="font-semibold">Orbital class:</span>
           <span class="bg-gray-200 px-3 py-0.5 rounded-3xl">
             {{ data.orbital_data.orbit_class.orbit_class_type }}
           </span>
         </div>
 
         <div class="flex justify-between items-center">
-          <span class="font-semibold">Descripcion:</span>
+          <span class="font-semibold">Description:</span>
           <span class="text-sm text-end">
             {{ data.orbital_data.orbit_class.orbit_class_description }}
           </span>
         </div>
 
         <div class="flex justify-between items-center">
-          <span class="font-semibold">Periodo orbital:</span>
+          <span class="font-semibold">Orbital period:</span>
           <span class="text-base">
             {{ parseFloat(data.orbital_data.orbital_period).toFixed(2) }}
             dias
@@ -73,14 +73,14 @@
         </div>
 
         <div class="flex justify-between items-center">
-          <span class="font-semibold">Exentricidad:</span>
+          <span class="font-semibold">Eccentricity:</span>
           <span class="text-base">
             {{ parseFloat(data.orbital_data.eccentricity).toFixed(4) }}
           </span>
         </div>
 
         <div class="flex justify-between items-center">
-          <span class="font-semibold">Semieje mayor:</span>
+          <span class="font-semibold">Major semi-axis:</span>
           <span class="text-base">
             {{ parseFloat(data.orbital_data.semi_major_axis).toFixed(4) }}
             UA
@@ -88,7 +88,7 @@
         </div>
 
         <div class="flex justify-between items-center">
-          <span class="font-semibold">Inclinacion:</span>
+          <span class="font-semibold">Inclination:</span>
           <span class="text-base">
             {{ parseFloat(data.orbital_data.inclination).toFixed(2) }}°
           </span>
