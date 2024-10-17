@@ -57,7 +57,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-function navigate(id) {
+function navigate(id: string) {
   router.push({ name: 'asteroid', params: { id: id } })
 }
 defineProps<{
