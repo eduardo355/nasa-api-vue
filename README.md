@@ -1,39 +1,39 @@
-# nasa-api-dev
+# Proyecto de Práctica con la API de la NASA
 
-This template should help get you started developing with Vue 3 in Vite.
+Este proyecto es una práctica de desarrollo de software que utiliza Vue y TypeScript para consumir la API pública de la NASA. La API de la NASA proporciona acceso a una gran cantidad de información fascinante relacionada con el espacio, imágenes astronómicas, información sobre asteroides y más, lo que la hace ideal para este proyecto de práctica.
 
-## Recommended IDE Setup
+## Configuración
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Para comenzar a utilizar este proyecto, sigue estos pasos:
 
-## Type Support for `.vue` Imports in TS
+- Clona este repositorio en tu máquina local.
+- Asegúrate de tener instalado Node.js en tu sistema.
+- Instala Vite globalmente mediante el siguiente comando:
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+```bash
+npm install -g vite
+```
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+- Instala las dependencias del proyecto ejecutando:
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+- Obtén tu clave de API de la NASA API Portal.
+- Ahora estás listo para ejecutar el proyecto
 
-```sh
+## Uso
+
+Este proyecto incluye componentes React que interactúan con la API de la NASA para mostrar diferentes tipos de datos relacionados con el espacio:
+
+- NearEarthObjects: Muestra información sobre asteroides cercanos a la Tierra.
+- MarsRoverPhotos: Muestra imágenes recientes tomadas por los rovers en Marte. (PROXIMAMENTE)
+- APOD: Muestra la "Imagen del Día" (APOD) de la NASA junto con información sobre ella. (PROXIMAMENTE)
+- ISSLocation: Muestra la ubicación actual de la Estación Espacial Internacional (ISS). (PROXIMAMENTE)
+
+- Puedes ejecutar la aplicación en modo de desarrollo utilizando el siguiente comando:
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Esto iniciará el servidor de desarrollo de Vite y abrirá la aplicación en tu navegador predeterminado.
