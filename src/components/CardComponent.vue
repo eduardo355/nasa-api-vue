@@ -38,6 +38,7 @@
     </span>
     <div>
       <button
+        @click="navigate(items.id)"
         class="py-2 px-4 mt-6 rounded-md text-white"
         :class="
           items.is_potentially_hazardous_asteroid
@@ -52,6 +53,13 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function navigate(id) {
+  router.push({ name: 'asteroid', params: { id: id } })
+}
 defineProps<{
   data: any[]
 }>()
