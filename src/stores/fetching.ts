@@ -28,5 +28,24 @@ export const useFetchingStore = defineStore('fetching', () => {
     }
   }
 
-  return { page, loader, changePage, fetchingApi }
+  const asteroidById = async (id: string) => {
+    loader.value = true
+    try {
+      const response = await fetch(
+        `https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=xO15lhanHARD6LlOCuvcLDbWgKt0cmXLr3nTaoKR`
+      )
+      if (!response.ok) {
+        throw new Error(`Error en la API: ${response.statusText}`)
+      }
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.error('Error fetching data:', error)
+      return []
+    } finally {
+      loader.value = false
+    }
+  }
+
+  return { page, loader, changePage, fetchingApi, asteroidById }
 })
