@@ -40,6 +40,10 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useFetchingStore } from '@/stores/fetching'
 
+interface MarsRoverPhoto {
+  img_src: string
+}
+
 const fetchingStore = useFetchingStore()
 const { marsRoverPhotos } = fetchingStore
 const router = useRouter()
@@ -47,7 +51,7 @@ const route = useRoute()
 
 const loader = computed(() => fetchingStore.loader)
 const currentPage = ref(Number(route.query.page) || 1)
-const data = ref([])
+const data = ref<MarsRoverPhoto[]>([])
 
 const nextPage = () => {
   currentPage.value++
