@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <main class="h-screen w-screen">
+  <main class="h-screen">
     <NavComponent />
     <RouterView />
     <RouterLink to="/" />
