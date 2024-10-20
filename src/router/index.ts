@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AsteroidView from '../views/AsteroidView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,8 +12,13 @@ const router = createRouter({
     {
       path: '/asteroid/:id',
       name: 'asteroid',
-      component: AsteroidView,
+      component: () => import('../views/AsteroidView.vue'),
       props: true
+    },
+    {
+      path: '/marsrovers',
+      name: 'marsrovers',
+      component: () => import('../views/MarsRoverView.vue')
     }
     // {
     //   path: '/about',
