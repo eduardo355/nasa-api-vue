@@ -1,59 +1,74 @@
 <template>
-  <div class="grid grid-cols-5 grid-rows-5 gap-4 p-4">
-    <div class="row-span-5 shadow-lg p-4 space-y-4">
-      <span class="text-3xl font-bold">Filter</span>
-      <label class="flex flex-col w-full text-lg" for="selected-rover">
-        <span>Rover</span>
-        <select class="focus:outline-none border border-gray-200 p-2 rounded-md" name="" id="">
-          <option value="" default>Selected Rover</option>
-        </select>
-      </label>
-      <label class="flex flex-col w-full text-lg" for="selected-camera">
-        <span>Camera</span>
-        <select class="focus:outline-none border border-gray-200 p-2 rounded-md" name="" id="">
-          <option value="" default>Selected Camera</option>
-        </select>
-      </label>
+  <div class="flex space-x-10">
+    <div class="flex flex-col w-[15%] p-4">
+      <h2 class="text-2xl font-semibold">Filter</h2>
+      <select name="" id="">
+        <option value="">option</option>
+      </select>
     </div>
 
-    <div class="col-span-4 row-span-5">
-      <div class="grid grid-cols-5 gap-2">
-        <div v-for="(items, index) in data" :key="index">
-          <img class="h-full" :src="items.img_src" alt="Mars Rover Photo" />
-        </div>
+    <div class="flex justify-center items-center w-[85%]" v-if="loader">
+      <LoaderComponent />
+    </div>
+
+    <div
+      v-if="!loader"
+      class="grid grid-cols-5 gap-2 p-4 place-items-center grid-flow-row-dense w-[85%]"
+    >
+      <div v-for="(item, index) in data" :key="index" class="h-full">
+        <img :src="item.img_src" alt="" class="w-full h-full rounded-xl" />
       </div>
-      <div>
-        <button class="bg-blue-500 text-white p-2 rounded-md" @click="changePageMars(1)">
-          Load More
+      <div class="space-x-6 col-span-5 py-4">
+        <button
+          v-if="currentPage > 1"
+          @click="previousPage"
+          class="px-4 py-2 bg-blue-500 text-white rounded-xl font-semibold"
+        >
+          Previous Page
+        </button>
+        <button @click="nextPage" class="px-4 py-2 bg-blue-500 text-white rounded-xl font-semibold">
+          Next Page
         </button>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { ref, watch, onMounted } from 'vue'
-import { useFetchingStore } from '@/stores/fetching'
+<script setup lang="ts">
+import LoaderComponent from '@/components/LoaderComponent.vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useFetchingStore } from '@/stores/fetching'
+
 const fetchingStore = useFetchingStore()
-const { marsRoverPhotos, changePageMars } = fetchingStore
-
-const route = useRoute()
-const currentPage = route.query.page || '1'
+const { marsRoverPhotos } = fetchingStore
 const router = useRouter()
+const route = useRoute()
 
+const loader = computed(() => fetchingStore.loader)
+const currentPage = ref(Number(route.query.page) || 1)
 const data = ref([])
 
-const handleCurrentPage = () => {
-  router.push('/marsrovers?page=' + currentPage.value)
+const nextPage = () => {
+  currentPage.value++
+  router.push({ path: '/marsrovers', query: { page: currentPage.value } })
+  getMarsRoverPhotos(currentPage.value)
 }
 
-const fetchMarsRoverPhotos = async () => {
-  const result = await marsRoverPhotos()
-  handleCurrentPage()
-  data.value = result
+const previousPage = () => {
+  currentPage.value--
+  router.push({ path: '/marsrovers', query: { page: currentPage.value } })
+  getMarsRoverPhotos(currentPage.value)
 }
 
-onMounted(fetchMarsRoverPhotos)
-watch(currentPage, fetchMarsRoverPhotos)
+const getMarsRoverPhotos = async (currentPage: number) => {
+  const result = await marsRoverPhotos(currentPage)
+  if (result) {
+    data.value = result
+  }
+}
+
+onMounted(() => {
+  getMarsRoverPhotos(currentPage.value)
+})
 </script>
