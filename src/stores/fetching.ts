@@ -47,5 +47,30 @@ export const useFetchingStore = defineStore('fetching', () => {
     }
   }
 
-  return { page, loader, changePage, fetchingApi, asteroidById }
+  const marsRoverPhotos = async (pageMars: number) => {
+    loader.value = true
+    try {
+      const response = await fetch(
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=${pageMars}&api_key=xO15lhanHARD6LlOCuvcLDbWgKt0cmXLr3nTaoKR`
+      )
+      if (!response.ok) {
+        throw new Error(`Error en la API: ${response.statusText}`)
+      }
+      const data = await response.json()
+      return data.photos
+    } catch (error) {
+      console.error('Error fetching data:', error)
+      return []
+    } finally {
+      loader.value = false
+    }
+  }
+  return {
+    page,
+    loader,
+    changePage,
+    fetchingApi,
+    asteroidById,
+    marsRoverPhotos
+  }
 })
