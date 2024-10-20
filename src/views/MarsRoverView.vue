@@ -1,6 +1,6 @@
 <template>
-  <div class="flex space-x-10">
-    <div class="flex flex-col w-[15%] p-4">
+  <div class="flex xl:flex-row flex-col xl:space-x-10 p-4">
+    <div class="flex flex-col xl:w-[15%] p-4">
       <h2 class="text-2xl font-semibold">Filter</h2>
       <select name="" id="">
         <option value="">option</option>
@@ -13,12 +13,14 @@
 
     <div
       v-if="!loader"
-      class="grid grid-cols-5 gap-2 p-4 place-items-center grid-flow-row-dense w-[85%]"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 place-items-center xl:w-[85%]"
     >
-      <div v-for="(item, index) in data" :key="index" class="h-full">
+      <div v-for="(item, index) in data" :key="index">
         <img :src="item.img_src" alt="" class="w-full h-full rounded-xl" />
       </div>
-      <div class="space-x-6 col-span-5 py-4">
+      <div
+        class="space-x-6 col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4 2xl:col-span-5 py-4"
+      >
         <button
           v-if="currentPage > 1"
           @click="previousPage"
