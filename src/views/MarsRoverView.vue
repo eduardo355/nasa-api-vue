@@ -1,16 +1,27 @@
 <template>
   <div class="flex xl:flex-row flex-col xl:space-x-10 p-4">
-    <div class="flex flex-col xl:w-[15%] p-4">
-      <h2 class="text-2xl font-semibold">Filter</h2>
-      <select name="" id="">
-        <option value="">option</option>
+    <div class="flex flex-col xl:w-[15%] p-4 space-y-4">
+      <h2 class="text-2xl font-semibold">Filter's</h2>
+      <span v-if="selectedCamera" class="bg-gray-200 py-2 px-4 rounded-lg flex justify-between">
+        {{ selectedCamera }}
+        <button @click="filterCamera(true)" class="font-bold">X</button>
+      </span>
+      <select
+        name=""
+        id=""
+        v-on:change="filterCamera(false)"
+        v-model="selectedCamera"
+        :value="selectedCamera"
+        class="focus:outline-none border border-gray-200 px-4 py-2 rounded-lg"
+      >
+        <option v-for="(item, index) in cameras" :key="index" :value="item.name" default>
+          {{ item.full_name }}
+        </option>
       </select>
     </div>
-
-    <div class="flex justify-center items-center w-[85%]" v-if="loader">
+    <div class="flex justify-center items-center w-full" v-if="loader">
       <LoaderComponent />
     </div>
-
     <div
       v-if="!loader"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 place-items-center xl:w-[85%]"
@@ -47,34 +58,79 @@ interface MarsRoverPhoto {
 }
 
 const fetchingStore = useFetchingStore()
-const { marsRoverPhotos } = fetchingStore
+const { marsRoverPhotos, marsRoverPhotosByCamera } = fetchingStore
 const router = useRouter()
 const route = useRoute()
 
-const loader = computed(() => fetchingStore.loader)
-const currentPage = ref(Number(route.query.page) || 1)
+const cameras = ref([])
 const data = ref<MarsRoverPhoto[]>([])
+const loader = computed(() => fetchingStore.loader)
+const selectedCamera = ref(route.query.camera || '')
+const currentPage = ref(Number(route.query.page) || 1)
+
+const filterCamera = (reset) => {
+  if (reset) {
+    selectedCamera.value = ''
+    router.push({ path: '/marsrovers', query: { page: currentPage.value } })
+    getMarsRoverPhotos(currentPage.value)
+    return
+  }
+  router.push({
+    path: '/marsrovers',
+    query: { page: currentPage.value, camera: selectedCamera.value }
+  })
+  getMarsRoverByCamera(selectedCamera.value)
+}
 
 const nextPage = () => {
   currentPage.value++
-  router.push({ path: '/marsrovers', query: { page: currentPage.value } })
-  getMarsRoverPhotos(currentPage.value)
+  if (selectedCamera.value) {
+    getMarsRoverByCamera(selectedCamera.value)
+    router.push({
+      path: '/marsrovers',
+      query: { page: currentPage.value, camera: selectedCamera.value }
+    })
+  } else {
+    getMarsRoverPhotos(currentPage.value)
+    router.push({ path: '/marsrovers', query: { page: currentPage.value } })
+  }
 }
 
 const previousPage = () => {
   currentPage.value--
-  router.push({ path: '/marsrovers', query: { page: currentPage.value } })
-  getMarsRoverPhotos(currentPage.value)
+  if (selectedCamera.value) {
+    getMarsRoverByCamera(selectedCamera.value)
+    router.push({
+      path: '/marsrovers',
+      query: { page: currentPage.value, camera: selectedCamera.value }
+    })
+  } else {
+    getMarsRoverPhotos(currentPage.value)
+    router.push({ path: '/marsrovers', query: { page: currentPage.value } })
+  }
+}
+
+const getMarsRoverByCamera = async (camera: string) => {
+  const result = await marsRoverPhotosByCamera(currentPage.value, camera)
+  if (result) {
+    data.value = result
+    if (result.length > 0) cameras.value = result[0].rover.cameras
+  }
 }
 
 const getMarsRoverPhotos = async (currentPage: number) => {
   const result = await marsRoverPhotos(currentPage)
   if (result) {
     data.value = result
+    cameras.value = result[0].rover.cameras
   }
 }
 
 onMounted(() => {
-  getMarsRoverPhotos(currentPage.value)
+  if (selectedCamera.value) {
+    getMarsRoverByCamera(selectedCamera.value)
+  } else {
+    getMarsRoverPhotos(currentPage.value)
+  }
 })
 </script>
