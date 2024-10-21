@@ -11,7 +11,6 @@
         id=""
         v-on:change="filterCamera(false)"
         v-model="selectedCamera"
-        :value="selectedCamera"
         class="focus:outline-none border border-gray-200 px-4 py-2 rounded-lg"
       >
         <option v-for="(item, index) in cameras" :key="index" :value="item.name" default>
@@ -70,7 +69,10 @@ const route = useRoute()
 const cameras = ref<Camera[]>([])
 const data = ref<MarsRoverPhoto[]>([])
 const loader = computed(() => fetchingStore.loader)
-const selectedCamera = ref(route.query.camera || '')
+const selectedCamera = ref(
+  Array.isArray(route.query.camera) ? route.query.camera[0] : route.query.camera || ''
+)
+
 const currentPage = ref(Number(route.query.page) || 1)
 
 const filterCamera = (reset: boolean) => {
@@ -104,7 +106,7 @@ const nextPage = () => {
 const previousPage = () => {
   currentPage.value--
   if (selectedCamera.value) {
-    getMarsRoverByCamera(selectedCamera.value)
+    getMarsRoverByCamera(selectedCamera.value as string)
     router.push({
       path: '/marsrovers',
       query: { page: currentPage.value, camera: selectedCamera.value }
