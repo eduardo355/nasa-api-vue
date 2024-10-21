@@ -57,18 +57,23 @@ interface MarsRoverPhoto {
   img_src: string
 }
 
+interface Camera {
+  name: string
+  full_name: string
+}
+
 const fetchingStore = useFetchingStore()
 const { marsRoverPhotos, marsRoverPhotosByCamera } = fetchingStore
 const router = useRouter()
 const route = useRoute()
 
-const cameras = ref([])
+const cameras = ref<Camera[]>([])
 const data = ref<MarsRoverPhoto[]>([])
 const loader = computed(() => fetchingStore.loader)
 const selectedCamera = ref(route.query.camera || '')
 const currentPage = ref(Number(route.query.page) || 1)
 
-const filterCamera = (reset) => {
+const filterCamera = (reset: boolean) => {
   if (reset) {
     selectedCamera.value = ''
     router.push({ path: '/marsrovers', query: { page: currentPage.value } })
@@ -79,19 +84,19 @@ const filterCamera = (reset) => {
     path: '/marsrovers',
     query: { page: currentPage.value, camera: selectedCamera.value }
   })
-  getMarsRoverByCamera(selectedCamera.value)
+  getMarsRoverByCamera(selectedCamera.value as string)
 }
 
 const nextPage = () => {
   currentPage.value++
   if (selectedCamera.value) {
-    getMarsRoverByCamera(selectedCamera.value)
+    getMarsRoverByCamera(selectedCamera.value as string)
     router.push({
       path: '/marsrovers',
       query: { page: currentPage.value, camera: selectedCamera.value }
     })
   } else {
-    getMarsRoverPhotos(currentPage.value)
+    getMarsRoverPhotos(currentPage.value as number)
     router.push({ path: '/marsrovers', query: { page: currentPage.value } })
   }
 }
