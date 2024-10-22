@@ -19,15 +19,12 @@ const router = createRouter({
       path: '/marsrovers',
       name: 'marsrovers',
       component: () => import('../views/MarsRoverView.vue')
+    },
+    {
+      path: '/apod',
+      name: 'apod',
+      component: () => import('../views/ApodView.vue')
     }
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
   ]
 })
 
