@@ -6,7 +6,7 @@
       <div class="xl:col-span-4 lg:col-span-3 md:col-span-2 col-span-1" v-if="loader">
         <LoaderComponent />
       </div>
-      <CardComponent v-if="data.length > 0" :data="data" />
+      <CardAsteroidComponent v-if="data.length > 0" :data="data" />
       <div v-if="!loader" class="xl:col-span-4 lg:col-span-3 md:col-span-2 col-span-1 space-x-4">
         <button
           v-if="currentPage > 0"
@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import LoaderComponent from '@/components/LoaderComponent.vue'
-import CardComponent from '@/components/CardComponent.vue'
+import CardAsteroidComponent from '@/components/CardAsteroidComponent.vue'
 import { ref, computed, onMounted, watch } from 'vue'
 import { useFetchingStore } from '@/stores/fetching'
 
