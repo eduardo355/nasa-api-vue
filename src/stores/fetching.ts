@@ -85,12 +85,30 @@ export const useFetchingStore = defineStore('fetching', () => {
     }
   }
 
+  const pictureOftheDay = async () => {
+    loader.value = true
+    try {
+      const result = await fetch(
+        'https://api.nasa.gov/planetary/apod?api_key=xO15lhanHARD6LlOCuvcLDbWgKt0cmXLr3nTaoKR'
+      )
+
+      const data = await result.json()
+      return data
+    } catch (error) {
+      console.error(error)
+      return []
+    } finally {
+      loader.value = false
+    }
+  }
+
   return {
     page,
     loader,
     changePage,
     fetchingApi,
     asteroidById,
+    pictureOftheDay,
     marsRoverPhotos,
     marsRoverPhotosByCamera
   }
