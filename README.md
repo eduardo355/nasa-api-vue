@@ -29,7 +29,7 @@ Este proyecto incluye componentes React que interactúan con la API de la NASA p
 
 - NearEarthObjects: Muestra información sobre asteroides cercanos a la Tierra.
 - MarsRoverPhotos: Muestra imágenes recientes tomadas por los rovers en Marte.
-- APOD: Muestra la "Imagen del Día" (APOD) de la NASA junto con información sobre ella. (PROXIMAMENTE)
+- APOD: Muestra la "Imagen del Día" (APOD) de la NASA junto con información sobre ella.
 - ISSLocation: Muestra la ubicación actual de la Estación Espacial Internacional (ISS). (PROXIMAMENTE)
 
 - Puedes ejecutar la aplicación en modo de desarrollo utilizando el siguiente comando:
