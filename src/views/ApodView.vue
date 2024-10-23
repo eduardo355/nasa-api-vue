@@ -14,8 +14,8 @@ import LoaderComponent from '@/components/LoaderComponent.vue'
 const fetchingStore = useFetchingStore()
 const { pictureOftheDay } = fetchingStore
 
-const loader = computed(() => fetchingStore.loader)
 const data = ref([])
+const loader = computed(() => fetchingStore.loader)
 
 const fetchPicture = async () => {
   const result = await pictureOftheDay()
