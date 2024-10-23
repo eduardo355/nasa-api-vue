@@ -7,10 +7,10 @@
         <button @click="filterCamera(true)" class="font-bold">X</button>
       </span>
       <select
-        name=""
         id=""
-        v-on:change="filterCamera(false)"
+        name=""
         v-model="selectedCamera"
+        v-on:change="filterCamera(false)"
         class="focus:outline-none border border-gray-200 px-4 py-2 rounded-lg"
       >
         <option v-for="(item, index) in cameras" :key="index" :value="item.name" default>
@@ -47,10 +47,10 @@
 </template>
 
 <script setup lang="ts">
-import LoaderComponent from '@/components/LoaderComponent.vue'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useFetchingStore } from '@/stores/fetching'
+import LoaderComponent from '@/components/LoaderComponent.vue'
 
 interface MarsRoverPhoto {
   img_src: string
@@ -63,8 +63,8 @@ interface Camera {
 
 const fetchingStore = useFetchingStore()
 const { marsRoverPhotos, marsRoverPhotosByCamera } = fetchingStore
-const router = useRouter()
 const route = useRoute()
+const router = useRouter()
 
 const cameras = ref<Camera[]>([])
 const data = ref<MarsRoverPhoto[]>([])
