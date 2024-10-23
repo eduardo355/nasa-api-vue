@@ -17,9 +17,12 @@
       >
         <router-link to="/marsrovers?page=1">Mars Rover Photos</router-link>
       </li>
-      <!-- <li class="hover:underline">
-        <router-link to="/asteroids">Asteroids - NeoWs</router-link>
-      </li> -->
+      <li
+        class="hover:bg-gray-200 px-4 py-2 rounded-xl text-lg font-semibold"
+        :class="pathName === 'earth' && 'bg-gray-200 px-4 py-2 rounded-xl'"
+      >
+        <router-link to="/earth">Earth</router-link>
+      </li>
     </ul>
   </nav>
 </template>
