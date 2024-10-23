@@ -24,6 +24,11 @@ const router = createRouter({
       path: '/apod',
       name: 'apod',
       component: () => import('../views/ApodView.vue')
+    },
+    {
+      path: '/earth',
+      name: 'earth',
+      component: () => import('../views/EarthView.vue')
     }
   ]
 })
