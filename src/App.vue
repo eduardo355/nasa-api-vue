@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavComponent from '@/components/NavComponent.vue'
+import NavComponent from '@/components/nav-component.vue'
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
