@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/home-view.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,18 +12,18 @@ const router = createRouter({
     {
       path: '/asteroid/:id',
       name: 'asteroid',
-      component: () => import('../views/AsteroidView.vue'),
+      component: () => import('../views/asteroid-view.vue'),
       props: true
-    },
-    {
-      path: '/marsrovers',
-      name: 'marsrovers',
-      component: () => import('../views/MarsRoverView.vue')
     },
     {
       path: '/apod',
       name: 'apod',
-      component: () => import('../views/ApodView.vue')
+      component: () => import('../views/apod-view.vue')
+    },
+    {
+      path: '/marsrovers',
+      name: 'marsrovers',
+      component: () => import('../views/mars-rover-view.vue')
     }
   ]
 })
